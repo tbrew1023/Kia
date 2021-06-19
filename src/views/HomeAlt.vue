@@ -172,7 +172,9 @@ export default {
       
       <!-- Section 2 -->
       <section class="section">
-        <div class="page-container sec2"></div>
+        <div class="page-container">
+          <p>sample content 1</p>
+        </div>
       </section>
 
       <!-- Section 3 -->
@@ -208,16 +210,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/styles/global';
-
-.sec2 {
-  background-image: url('../assets/landing2.gif') !important;
-  background-size: cover !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-attachment: fixed !important;
-  height: 100vh;
-  width: 100%;
-}
 
 .stage-above {
     transform: translate(0px, -72px);
@@ -277,7 +269,7 @@ export default {
 }
 
 #landing {
-  width: 95vw;
+  width: 90vw;
   animation: fill cubic-bezier(0.85, 0, 0.15, 1) forwards 10s; //
 }
 
@@ -454,7 +446,7 @@ export default {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;

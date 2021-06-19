@@ -83,6 +83,7 @@ export default {
 <style lang="scss">
 html {
   transition: filter 1s;
+  color: black !important;
 }
 
 .swoop {
@@ -201,15 +202,6 @@ body {
 
 p {
   //font-family: 'Inconsolata', monospace !important; 
-}
-
-#app {
-  font-family: 'Gotham', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: white;
-  background: #222; 
 }
 
 // --------- cursor stuff ----------

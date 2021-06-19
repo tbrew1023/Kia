@@ -41,7 +41,7 @@ export default {
     this.hideNav = false; //hide nav on landing page?
     setTimeout(() => {
         this.animationComplete = true;
-    }, 10000);
+    }, 6000);
   },
   methods: {
     handleScroll() {
@@ -169,10 +169,35 @@ export default {
           <div :class="( animationComplete ? 'enter' : 'stage-above' )" class="arrow-down hoverable">⭣</div>
         </div>
       </section>
+
+      <div class="wrappable-text"></div>
       
       <!-- Section 2 -->
       <section class="section">
-        <div class="page-container sec2"></div>
+        <div class="page-container collage-container">
+          <div class="collage-inner">
+            <div class="collage-item collage-item1"></div>
+            <div class="collage-item collage-item2"></div>
+            <div class="collage-item collage-item3"></div>
+            <div class="collage-item collage-item4"></div>
+            <div class="collage-item collage-item5"></div>
+            <div class="collage-item collage-item6"></div>
+            <div class="collage-item collage-item7"></div>
+            <div class="collage-item collage-item8"></div>
+            <div class="collage-item collage-item9"></div>
+            <div class="collage-item collage-item10"></div>
+            <div class="collage-item collage-item11"></div>
+            <div class="collage-item collage-item12"></div>
+            <div class="collage-item collage-item13"></div>
+            <div class="collage-item collage-item14"></div>
+            <div class="collage-item collage-item15"></div>
+            <div class="collage-item collage-item16"></div>
+            <div class="collage-item collage-item17"></div>
+            <div class="collage-item collage-item18"></div>
+            <div class="collage-item collage-item19"></div>
+            <div class="collage-item collage-item20"></div>
+          </div>
+        </div>
       </section>
 
       <!-- Section 3 -->
@@ -214,6 +239,121 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/styles/global';
+
+.collage-item1 {
+
+}
+
+.collage-item2 {
+
+}
+
+.collage-item3 {
+
+}
+
+.collage-item4 {
+
+}
+
+.collage-item5 {
+
+}
+
+.collage-item6 {
+
+}
+
+.collage-item7 {
+
+}
+
+.collage-item8 {
+
+}
+
+.collage-item9 {
+
+}
+
+.collage-item10 {
+
+}
+
+.collage-item11 {
+
+}
+
+.collage-item12 {
+
+}
+
+.collage-item13 {
+
+}
+
+.collage-item14 {
+
+}
+
+.collage-item15 {
+
+}
+
+.collage-item16 {
+
+}
+
+.collage-item17 {
+
+}
+
+.collage-item18 {
+
+}
+
+.collage-item19 {
+
+}
+
+.collage-item20 {
+
+}
+
+.collage-item {
+  position: absolute;
+  background: blue;
+  height: 300px;
+  width: 200px;
+  border: black 2px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.collage-inner {
+  background: gray;
+  height: 600px;
+  width: 80%;
+}
+
+.collage-container {
+  margin-top: 120px !important;
+  height: 700px !important;
+}
+
+.wrappable-text {
+  height: 80px;
+  width: 100%;
+  background: white;
+  background-image: url('../assets/titles.png');
+  background-repeat: repeat-x;
+  background-size: 100%;
+  background-position-y: center;
+  animation: wrapX 24s reverse linear infinite;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
 
 .sec2 {
   filter: brightness(0.8);
@@ -284,14 +424,14 @@ export default {
 }
 
 #landing {
-  width: 95vw;
-  animation: fill cubic-bezier(0.85, 0, 0.15, 1) forwards 10s;
+  width: 90vw;
+  animation: fill cubic-bezier(0.85, 0, 0.15, 1) forwards 10s 2s;
 }
 
 #landing path:nth-child(1) {
   stroke-dasharray: 7222;
   stroke-dashoffset: 7222;
-  animation: line-animate 5s cubic-bezier(0.37, 0, 0.63, 1) forwards 3s;
+  animation: line-animate 5s cubic-bezier(0.37, 0, 0.63, 1) forwards 2s;
 }
 
 #landing path:nth-child(2) {
@@ -303,13 +443,13 @@ export default {
 #landing path:nth-child(3) {
   stroke-dasharray: 4876;
   stroke-dashoffset: 4876;
-  animation: line-animate 5s cubic-bezier(0.37, 0, 0.63, 1) forwards 6s;
+  animation: line-animate 5s cubic-bezier(0.37, 0, 0.63, 1) forwards 3.5s;
 }
 
 #landing path:nth-child(4) {
   stroke-dasharray: 4957;
   stroke-dashoffset: 4957;
-  animation: line-animate 5s cubic-bezier(0.37, 0, 0.63, 1) forwards 2s;
+  animation: line-animate 5s cubic-bezier(0.37, 0, 0.63, 1) forwards 1.5s;
 }
 
 #landing path:nth-child(5) {
@@ -321,13 +461,13 @@ export default {
 #landing path:nth-child(6) {
   stroke-dasharray: 1968;
   stroke-dashoffset: 1968;
-  animation: line-animate 5s cubic-bezier(0.37, 0, 0.63, 1) forwards 5s;
+  animation: line-animate 5s cubic-bezier(0.37, 0, 0.63, 1) forwards 3s;
 }
 
 #landing path:nth-child(7) {
   stroke-dasharray: 2202;
   stroke-dashoffset: 2202;
-  animation: line-animate 5s cubic-bezier(0.37, 0, 0.63, 1) forwards 4s;
+  animation: line-animate 5s cubic-bezier(0.37, 0, 0.63, 1) forwards 2.5s;
 }
 
 #landing path:nth-child(8) {
@@ -756,6 +896,14 @@ export default {
 
 .clear {
   filter: blur(0px);
+}
+
+@keyframes wrapX {
+  from {
+    background-position-x: 0vw;
+  } to {
+    background-position-x: 100vw;
+  }
 }
 
 @media only screen and (max-width: 900px) {
