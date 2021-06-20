@@ -9,6 +9,19 @@ export default {
   },
   data() {
     return {
+      collage1items: [
+        'Website Assets-01.png',
+        'Website Assets-02.png',
+        'Website Assets-03.png',
+        'Website Assets-04.png',
+        'Website Assets-05.png',
+        'Website Assets-06.png',
+        'Website Assets-07.png',
+        'Website Assets-08.png',
+        'Website Assets-09.png',
+        'Website Assets-10.png'
+      ],
+      modalActive: false,
       enterSection1: false,
       animationComplete: false,
       scroll: 0,
@@ -45,9 +58,16 @@ export default {
     }, 6000);
   },
   methods: {
+    handleModalOpen(context) {
+      this.modalActive = true;
+      this.context = context;
+      //console.clear();
+      //console.log('opening modal ', context);
+      //console.log(this.collage1items[context]);
+    },
     handleHoverIn(e) {
-      console.clear();
-      console.log('in');
+      //console.clear();
+      //console.log('in');
       //console.log(e.target);
       document.getElementsByClassName('collage-item').forEach(element => {
         if(e.target !== element) {
@@ -57,8 +77,8 @@ export default {
       });
     },
     handleHoverOut() {
-      console.clear();
-      console.log('out');
+      //console.clear();
+      //console.log('out');
       //console.log(e.target);
       document.getElementsByClassName('collage-item').forEach(element => {
         element.style.filter = 'blur(0px)';
@@ -67,7 +87,7 @@ export default {
     },
     handleScroll() {
       this.scroll = window.scrollY;
-      console.log(this.scroll);
+      //console.log(this.scroll);
 
       if(this.scroll >= 600) {
         this.enterSection1 = true;
@@ -89,28 +109,28 @@ export default {
   
       this.activeSection = destination.index;
 
-      console.log('activeSection: ', this.activeSection);
+      //console.log('activeSection: ', this.activeSection);
 
       if(direction == 'up') {
         this.triggerUp = true;
         this.triggerDown = false;
-        console.log('going up');
+        //console.log('going up');
       }
       else {
         this.triggerDown = true;
         this.triggerUp = false;
-        console.log('going down');
+        //console.log('going down');
       }
 
       if(destination.index == 0) {
-        console.log('on first slide');
+        //console.log('on first slide');
       }
     },
     handleSlideLeave(origin, destination, direction) {
-      console.clear();
-      console.log('origin: ', origin);
-      console.log('destination: ', destination);
-      console.log('direction: ', direction);
+      //console.clear();
+      //console.log('origin: ', origin);
+      //console.log('destination: ', destination);
+      //console.log('direction: ', direction);
   
       this.activeSlide = destination.index;
 
@@ -151,6 +171,14 @@ export default {
         <div class="wave"></div>
     </div-->
 
+    <!-- modal -->
+    <div class="proj-modal" :class="( modalActive ? 'modal-active' : 'modal-inactive' )">
+      <div @click="modalActive = false" class="exit hoverable">🡠</div>
+      <div class="modal-body">
+        <img :src="require('@/assets/pieces/' + collage1items[context])" :alt="collage1items[context]" height="900" />
+      </div>
+    </div>
+
     <!-- navigation -->
     <div id="nav" class="hoverable">
       <div class="link-list hoverable"></div>
@@ -183,16 +211,16 @@ export default {
       <section class="section">
         <div class="page-container collage-container">
           <div class="collage-inner">
-            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged1' : '' )" class="hoverable collage-item collage-item1"></div>
-            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged2' : '' )" class="hoverable collage-item collage-item2"></div>
-            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged3' : '' )" class="hoverable collage-item collage-item3"></div>
-            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged4' : '' )" class="hoverable collage-item collage-item4"></div>
-            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged5' : '' )" class="hoverable collage-item collage-item5"></div>
-            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged6' : '' )" class="hoverable collage-item collage-item6"></div>
-            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged7' : '' )" class="hoverable collage-item collage-item7"></div>
-            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged8' : '' )" class="hoverable collage-item collage-item8"></div>
-            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged9' : '' )" class="hoverable collage-item collage-item9"></div>
-            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged10' : '' )" class="hoverable collage-item collage-item10"></div>
+            <div @click="handleModalOpen(0)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged1' : '' )" class="hoverable collage-item collage-item1"></div>
+            <div @click="handleModalOpen(1)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged2' : '' )" class="hoverable collage-item collage-item2"></div>
+            <div @click="handleModalOpen(2)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged3' : '' )" class="hoverable collage-item collage-item3"></div>
+            <div @click="handleModalOpen(3)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged4' : '' )" class="hoverable collage-item collage-item4"></div>
+            <div @click="handleModalOpen(4)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged5' : '' )" class="hoverable collage-item collage-item5"></div>
+            <div @click="handleModalOpen(5)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged6' : '' )" class="hoverable collage-item collage-item6"></div>
+            <div @click="handleModalOpen(6)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged7' : '' )" class="hoverable collage-item collage-item7"></div>
+            <div @click="handleModalOpen(7)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged8' : '' )" class="hoverable collage-item collage-item8"></div>
+            <div @click="handleModalOpen(8)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged9' : '' )" class="hoverable collage-item collage-item9"></div>
+            <div @click="handleModalOpen(9)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged10' : '' )" class="hoverable collage-item collage-item10"></div>
             <!--div clashoverable s="collage-item collage-item11">11</div>
             <div class="hoverable collage-item collage-item12">12</div>
             <div class="hoverable collage-item collage-item13">13</div>
@@ -246,6 +274,51 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/styles/global';
+
+.modal-body {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  width: 60%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.modal-active {
+  opacity: 1;
+  transition: 400ms;
+}
+
+.modal-inactive {
+  opacity: 0;
+  transition: 1s;
+  pointer-events: none;
+  transform: scale(0.95);
+}
+
+.exit {
+  font-size: 36px;
+  margin-top: 64px;
+  margin-left: 80px;
+  transition: 400ms;
+
+  &:hover {
+    transform: translateX(-16px);
+  }
+}
+
+.proj-modal {
+  position: fixed !important;
+  background: rgba(white, 0.8);
+  height: 100vh;
+  width: 100%;
+  z-index: 99;
+  backdrop-filter: blur(64px);
+}
 
 .staged1 {
   opacity: 0;
@@ -984,11 +1057,6 @@ export default {
   height: 250px;
   transition: 1.2s;
 
-  &:hover {
-    //transform: scale(0.95);
-    //filter:hue-rotate(145deg);
-  }
-
   &:nth-child(1) {
     transition-delay: 1.4s;  
   }
@@ -1025,37 +1093,6 @@ export default {
     transition-delay: 1.4s;  
   }
 }
-
-.modal-active {
-  background: black;
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  z-index: 999;
-  transition: 600ms;
-  transition-delay: 600ms;
-  margin: auto;
-  left: 0px;
-  top: 0px;
-  overflow: auto;
-}
-
-.modal-inactive {
-  background: black;
-  opacity: 0;
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  z-index: 999;
-  transition: 600ms;
-  margin: auto;
-  left: 0px;
-  top: 0px;
-  overflow: auto;
-  pointer-events: none;
-}
-
-
 
 .blur {
   filter: blur(24px);

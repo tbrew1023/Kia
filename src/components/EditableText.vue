@@ -20,9 +20,9 @@ export default {
         fetchText() {
             this.fireFetch("text", "rel == $rel", (docs) => {
                 docs.forEach((doc) => {
-                    console.log(doc.data());
+                    //console.log(doc.data());
                     this.thisText = doc.data().value;
-                    console.log(this.thisText);
+                    //console.log(this.thisText);
                 });
             });
         }

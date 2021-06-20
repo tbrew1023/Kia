@@ -50,7 +50,7 @@ export default {
     handleNav(index) {
       console.clear();
       console.log(index);
-      console.log('ROUTE HOME');
+      //console.log('ROUTE HOME');
       this.$refs.fullpage.api.moveTo(1);
     },
     moveCursor(e) {
@@ -59,7 +59,7 @@ export default {
       //console.log(e.target.classList);
 
       if(e.target.classList.contains('hoverable') || e.target.classList.contains('fp-tooltip') || e.target.tagName == "SPAN") {
-        console.log(e.target.tagName);
+        //console.log(e.target.tagName);
         //console.log('HOVERABLE:)');
         self.hover = true;
       } else {
