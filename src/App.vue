@@ -39,13 +39,11 @@ export default {
   },
   mounted() {
     document.addEventListener("mousemove", this.moveCursor);
-    document.addEventListener('mouseleave', (e) => {
+    document.addEventListener('mouseleave', () => {
       this.hideCursor = true;
-      console.log('left: ', e.target);
     });
-    document.addEventListener('mouseenter', (e) => {
+    document.addEventListener('mouseenter', () => {
       this.hideCursor = false;
-      console.log('entered: ', e.target);
     });
   },
   methods: {
@@ -71,10 +69,8 @@ export default {
 
       this.xChild = e.clientX;
       this.yChild = e.clientY;
-      setTimeout(() => {
-        this.xParent = e.clientX - 20;
-        this.yParent = e.clientY - 20;
-      }, 100);
+      this.xParent = e.clientX - 20;
+      this.yParent = e.clientY - 20;
     }
   }
 }
@@ -197,7 +193,7 @@ html {
 body {
   padding: 0px;
   margin: 0px;
-  //cursor: none;
+  cursor: none !important;
 }
 
 p {
@@ -216,7 +212,8 @@ p {
       transition: 
         width .6s ease,
         height .6s ease,
-        opacity .6s ease;
+        opacity .6s ease,
+        transition 0s;
     }
 
     &__circle {
@@ -238,6 +235,7 @@ p {
         opacity 0.6s ease,
         width 0.6s ease,
         height 0.6s ease,
+        transition 0s;
     }
 
     &__point {
@@ -258,7 +256,8 @@ p {
         margin .4s ease,
         opacity .4s ease,
         width .4s ease,
-        height .4s ease;
+        height .4s ease,
+        transform 0s;
     }
 
     &_hover {
@@ -293,7 +292,8 @@ p {
             margin .4s ease,
             width .4s ease,
             height .4s ease,
-            opacity .4s ease;
+            opacity .4s ease,
+            transform 0s;
         }
     }
 }

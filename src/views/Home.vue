@@ -9,6 +9,7 @@ export default {
   },
   data() {
     return {
+      enterSection1: false,
       animationComplete: false,
       scroll: 0,
       name: null,
@@ -44,9 +45,34 @@ export default {
     }, 6000);
   },
   methods: {
+    handleHoverIn(e) {
+      console.clear();
+      console.log('in');
+      //console.log(e.target);
+      document.getElementsByClassName('collage-item').forEach(element => {
+        if(e.target !== element) {
+          element.style.filter = 'blur(24px)';
+          element.style.opacity = 0.6;
+        }
+      });
+    },
+    handleHoverOut() {
+      console.clear();
+      console.log('out');
+      //console.log(e.target);
+      document.getElementsByClassName('collage-item').forEach(element => {
+        element.style.filter = 'blur(0px)';
+        element.style.opacity = 1;
+      });
+    },
     handleScroll() {
       this.scroll = window.scrollY;
       console.log(this.scroll);
+
+      if(this.scroll >= 600) {
+        this.enterSection1 = true;
+      }
+
     },
     fetchText() {
       firebase.firestore().collection("test-data").where("age","==",23).get().then((docs) => {
@@ -98,25 +124,6 @@ export default {
         this.triggerDown = true;
         this.triggerUp = false;
       }
-    },
-    handleMouseEnter(i, index) {
-      console.clear();
-      console.log('enter' , index);
-      this.hover = true;
-      this.currentPreview = i.thumb;
-      this.currentProjectText = i.description;
-      this.currentProjectTitle = i.title;
-      this.context = index;
-
-      console.log(this.currentPreview);
-    },
-    handleMouseLeave(i, index) {
-      console.clear();
-      console.log('leave', index);
-
-      this.hover = false;
-
-      /*if(!this.modalActive) {}*/
     }
   }
 }
@@ -176,26 +183,26 @@ export default {
       <section class="section">
         <div class="page-container collage-container">
           <div class="collage-inner">
-            <div class="collage-item collage-item1"></div>
-            <div class="collage-item collage-item2"></div>
-            <div class="collage-item collage-item3"></div>
-            <div class="collage-item collage-item4"></div>
-            <div class="collage-item collage-item5"></div>
-            <div class="collage-item collage-item6"></div>
-            <div class="collage-item collage-item7"></div>
-            <div class="collage-item collage-item8"></div>
-            <div class="collage-item collage-item9"></div>
-            <div class="collage-item collage-item10"></div>
-            <div class="collage-item collage-item11"></div>
-            <div class="collage-item collage-item12"></div>
-            <div class="collage-item collage-item13"></div>
-            <div class="collage-item collage-item14"></div>
-            <div class="collage-item collage-item15"></div>
-            <div class="collage-item collage-item16"></div>
-            <div class="collage-item collage-item17"></div>
-            <div class="collage-item collage-item18"></div>
-            <div class="collage-item collage-item19"></div>
-            <div class="collage-item collage-item20"></div>
+            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged1' : '' )" class="hoverable collage-item collage-item1"></div>
+            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged2' : '' )" class="hoverable collage-item collage-item2"></div>
+            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged3' : '' )" class="hoverable collage-item collage-item3"></div>
+            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged4' : '' )" class="hoverable collage-item collage-item4"></div>
+            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged5' : '' )" class="hoverable collage-item collage-item5"></div>
+            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged6' : '' )" class="hoverable collage-item collage-item6"></div>
+            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged7' : '' )" class="hoverable collage-item collage-item7"></div>
+            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged8' : '' )" class="hoverable collage-item collage-item8"></div>
+            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged9' : '' )" class="hoverable collage-item collage-item9"></div>
+            <div @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged10' : '' )" class="hoverable collage-item collage-item10"></div>
+            <!--div clashoverable s="collage-item collage-item11">11</div>
+            <div class="hoverable collage-item collage-item12">12</div>
+            <div class="hoverable collage-item collage-item13">13</div>
+            <div class="hoverable collage-item collage-item14">14</div>
+            <div class="hoverable collage-item collage-item15">15</div>
+            <div class="hoverable collage-item collage-item16">16</div>
+            <div class="hoverable collage-item collage-item17">17</div>
+            <div class="hoverable collage-item collage-item18">18</div>
+            <div class="hoverable collage-item collage-item19">19</div>
+            <div class="hoverable collage-item collage-item20">20</div-->
           </div>
         </div>
       </section>
@@ -240,105 +247,270 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/styles/global';
 
-.collage-item1 {
+.staged1 {
+  opacity: 0;
+  transform: translate(-200px, -200px) !important;
+}
 
+.staged2 {
+  opacity: 0;
+  transform: translate(360px, -200px) !important;
+}
+
+.staged3 {
+  opacity: 0;
+  transform: translate(490px, 400px) !important;
+}
+
+.staged4 {
+  opacity: 0;
+  transform: translate(820px, 0px) !important;
+}
+
+.staged5 {
+  opacity: 0;
+  transform: translate(-200px, 40px) !important;
+}
+
+.staged6 {
+  opacity: 0;
+  transform: translate(120px, -130px) !important;
+}
+
+.staged7 {
+  opacity: 0;
+  transform: translate(440px, 500px) !important;
+}
+
+.staged8 {
+  opacity: 0;
+  transform: translate(235px, 340px) !important;
+}
+
+.staged9 {
+  opacity: 0;
+  transform: translate(800px, -90px) !important;
+}
+
+.staged10 {
+  opacity: 0;
+  transform: translate(870px, 250px) !important;
+}
+
+.collage-item1 {
+  height: 350px;
+  width: 300px;
+  background-image: url('../assets/pieces/Website Assets-01.png');
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .collage-item2 {
+  height: 430px;
+  width: 400px;
+  transform: translate(360px, -40px);
+  transform-origin: 360px -40px;
+  background-image: url('../assets/pieces/Website Assets-02.png');
+  z-index: 7;
 
+  &:hover {
+    transform: scale(1.1) translate(350px, -50px);
+  }
 }
 
 .collage-item3 {
+  height: 400px;
+  width: 440px;
+  transform: translate(490px, 200px);
+  transform-origin: 490px 200px;
+  background-image: url('../assets/pieces/Website Assets-03.png');
+  z-index: 8;
 
+  &:hover {
+    transform: scale(1.1) translate(480px, 190px);
+  }
 }
 
 .collage-item4 {
+  height: 600px;
+  width: 900px;
+  transform: translate(620px, 0px);
+  transform-origin: 620px 0px;
+  background-image: url('../assets/pieces/Website Assets-04.png');
 
+  &:hover {
+    transform: scale(1.02) translate(610px, -10px);
+  }
 }
 
 .collage-item5 {
+  height: 400px;
+  width: 360px;
+  transform: translate(0px, 240px);
+  transform-origin: 0px 240px;
+  background-image: url('../assets/pieces/Website Assets-05.png');
 
+  &:hover {
+    transform: scale(1.1) translate(-2px, 238px);
+  }
 }
 
 .collage-item6 {
+  height: 400px;
+  width: 360px;
+  transform: translate(160px, -30px);
+  transform-origin: 160px -30px;
+  background-image: url('../assets/pieces/Website Assets-06.png');
 
+  &:hover {
+    transform: scale(1.1) translate(150px, -40px);
+  }
 }
 
 .collage-item7 {
+  height: 280px;
+  width: 200px;
+  transform: translate(440px, 400px);
+  transform-origin: 440px 400px;
+  background-image: url('../assets/pieces/Website Assets-07.png');
+  z-index: 7;
 
+  &:hover {
+    transform: scale(1.1) translate(430px, 390px);
+  }
 }
 
 .collage-item8 {
+  height: 400px;
+  width: 300px;
+  transform: translate(255px, 270px);
+  transform-origin: 255px 270px;
+  background-image: url('../assets/pieces/Website Assets-08.png');
 
+  &:hover {
+    transform: scale(1.1) translate(245px, 260px);
+  }
 }
 
 .collage-item9 {
+  height: 360px;
+  width: 360px;
+  transform: translate(700px, 0px);
+  transform-origin: 700px 0px;
+  background-image: url('../assets/pieces/Website Assets-09.png');
+  z-index: 10;
 
+  &:hover {
+    transform: scale(1.1) translate(690px, -10px);
+  }
 }
 
 .collage-item10 {
-
+  height: 420px;
+  width: 390px;
+  transform: translate(810px, 170px);
+  transform-origin: 810px 170px;
+  background-image: url('../assets/pieces/Website Assets-10.png');
+  z-index: 9;
 }
 
 .collage-item11 {
-
+  height: 400px;
+  width: 360px;
+  transform: translate(0px, 0px);
+  transform-origin: 0px 0px;
+  background-image: url('../assets/pieces/Website Assets-11.png');
 }
 
 .collage-item12 {
-
+  height: 400px;
+  width: 360px;
+  transform: translate(0px, 0px);
+  background-image: url('../assets/pieces/Website Assets-12.png');
 }
 
 .collage-item13 {
-
+  height: 400px;
+  width: 360px;
+  transform: translate(0px, 0px);
+  background-image: url('../assets/pieces/Website Assets-13.png');
 }
 
 .collage-item14 {
-
+  height: 400px;
+  width: 360px;
+  transform: translate(0px, 0px);
+  background-image: url('../assets/pieces/Website Assets-14.png');
 }
 
 .collage-item15 {
-
+  height: 400px;
+  width: 360px;
+  transform: translate(0px, 0px);
+  background-image: url('../assets/pieces/Website Assets-15.png');
 }
 
 .collage-item16 {
-
+  height: 400px;
+  width: 360px;
+  transform: translate(0px, 0px);
+  background-image: url('../assets/pieces/Website Assets-16.png');
 }
 
 .collage-item17 {
-
+  height: 400px;
+  width: 360px;
+  transform: translate(0px, 0px);
+  background-image: url('../assets/pieces/Website Assets-17.png');
 }
 
 .collage-item18 {
-
+  height: 400px;
+  width: 360px;
+  transform: translate(0px, 0px);
+  background-image: url('../assets/pieces/Website Assets-18.png');
 }
 
 .collage-item19 {
-
+  height: 400px;
+  width: 360px;
+  transform: translate(0px, 0px);
+  background-image: url('../assets/pieces/Website Assets-19.png');
 }
 
 .collage-item20 {
-
+  height: 400px;
+  width: 360px;
+  transform: translate(0px, 0px);
+  background-image: url('../assets/pieces/Website Assets-20.png');
 }
 
 .collage-item {
   position: absolute;
-  background: blue;
-  height: 300px;
-  width: 200px;
-  border: black 2px solid;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: transform 2s, opacity 2s, filter 300ms;
+  transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  &:hover {
+    z-index: 11;
+    transition: transform 300ms, opacity 300ms !important;
+  }
 }
 
 .collage-inner {
-  background: gray;
   height: 600px;
   width: 80%;
 }
 
 .collage-container {
-  margin-top: 120px !important;
+  padding-top: 64px !important;
   height: 700px !important;
 }
 
@@ -384,7 +556,6 @@ export default {
     right: 32px;
     bottom: 32px;
     color: black;
-    cursor: pointer;
 }
 
 @keyframes line-animate {
@@ -679,10 +850,6 @@ export default {
   background-repeat: no-repeat;
   height: 70px;
   margin: 42px;
-}
-
-.hoverable {
-  cursor: pointer;
 }
 
 .project-text {

@@ -229,7 +229,6 @@ export default {
     right: 32px;
     bottom: 32px;
     color: black;
-    cursor: pointer;
 }
 
 @keyframes line-animate {
@@ -516,10 +515,6 @@ export default {
   background-repeat: no-repeat;
   height: 70px;
   margin: 42px;
-}
-
-.hoverable {
-  cursor: pointer;
 }
 
 .project-text {
