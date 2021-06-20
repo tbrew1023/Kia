@@ -13,8 +13,8 @@
     <div class="proj-modal" :class="( projModalActive ? 'modal-active' : 'modal-inactive' )">
       <div @click="handleProjModalClose()" class="exit-fix hoverable"></div>
       <div class="arrow-down arrow-fix hoverable">⭣</div>
-      <div class="proj-modal-body">
-        <div v-for="i in getContextLength(projectContext)" :key="i" class="proj-section" :style="'background-image: url('+require('@/assets/projects/compressed/' + projectContext + '/' + parseInt(i+1) + '.png')+')'"></div>
+      <div v-if="projectContext" class="proj-modal-body">
+        <div v-for="i in getContextLength(projectContext)" :key="i" class="proj-section" :style="'background-image: url('+require('@/assets/projects/compressed/' + projectContext + '/' + parseInt(i) + '.png')+')'"></div>
       </div>
     </div>
 
@@ -50,7 +50,7 @@
       <section class="section">
         <div class="page-container collage-container">
           <div class="collage-inner">
-            <div @click="handleProjModalOpen(0)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged1' : '' )" class="hoverable collage-item collage-item1"></div>
+            <div @click="handleModalOpen(0)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged1' : '' )" class="hoverable collage-item collage-item1"></div>
             <div @click="handleModalOpen(1)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged2' : '' )" class="hoverable collage-item collage-item2"></div>
             <div @click="handleModalOpen(2)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged3' : '' )" class="hoverable collage-item collage-item3"></div>
             <div @click="handleModalOpen(3)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged4' : '' )" class="hoverable collage-item collage-item4"></div>
@@ -60,29 +60,24 @@
             <div @click="handleModalOpen(7)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged8' : '' )" class="hoverable collage-item collage-item8"></div>
             <div @click="handleModalOpen(8)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged9' : '' )" class="hoverable collage-item collage-item9"></div>
             <div @click="handleModalOpen(9)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged10' : '' )" class="hoverable collage-item collage-item10"></div>
-            <!--div clashoverable s="collage-item collage-item11">11</div>
-            <div class="hoverable collage-item collage-item12">12</div>
-            <div class="hoverable collage-item collage-item13">13</div>
-            <div class="hoverable collage-item collage-item14">14</div>
-            <div class="hoverable collage-item collage-item15">15</div>
-            <div class="hoverable collage-item collage-item16">16</div>
-            <div class="hoverable collage-item collage-item17">17</div>
-            <div class="hoverable collage-item collage-item18">18</div>
-            <div class="hoverable collage-item collage-item19">19</div>
-            <div class="hoverable collage-item collage-item20">20</div-->
           </div>
         </div>
       </section>
 
       <!-- Section 3 -->
       <section class="section">
-        <div class="page-container">
-          <div class="left">
-            <h1>Sample text</h1>
-            <p>Description of project</p>
-          </div>
-          <div class="right">
-            <div class="img-container"></div>
+        <div class="page-container collage-container">
+          <div class="collage-inner">
+            <div @click="handleProjModalOpen('tbd')" @mouseover="handleHoverIn" @mouseout="handleHoverOut" class="hoverable collage-item collage-item11"></div>
+            <div @click="handleProjModalOpen('tbd')" @mouseover="handleHoverIn" @mouseout="handleHoverOut" class="hoverable collage-item collage-item12"></div>
+            <div @click="handleProjModalOpen('dom-giovanni')" @mouseover="handleHoverIn" @mouseout="handleHoverOut" class="hoverable collage-item collage-item13"></div>
+            <div @click="handleProjModalOpen('sustainable-design')" @mouseover="handleHoverIn" @mouseout="handleHoverOut" class="hoverable collage-item collage-item14"></div>
+            <div @click="handleProjModalOpen('you-are-what-you-eat')" @mouseover="handleHoverIn" @mouseout="handleHoverOut" class="hoverable collage-item collage-item15"></div>
+            <div @click="handleProjModalOpen('tbd')" @mouseover="handleHoverIn" @mouseout="handleHoverOut" class="hoverable collage-item collage-item16"></div>
+            <div @click="handleProjModalOpen('asia-in-bloom')" @mouseover="handleHoverIn" @mouseout="handleHoverOut" class="hoverable collage-item collage-item17"></div>
+            <div @click="handleProjModalOpen('tbd')" @mouseover="handleHoverIn" @mouseout="handleHoverOut" class="hoverable collage-item collage-item18"></div>
+            <div @click="handleProjModalOpen('tbd')" @mouseover="handleHoverIn" @mouseout="handleHoverOut" class="hoverable collage-item collage-item19"></div>
+            <div @click="handleProjModalOpen('tbd')" @mouseover="handleHoverIn" @mouseout="handleHoverOut" class="hoverable collage-item collage-item20"></div>
           </div>
         </div>
       </section>
@@ -122,10 +117,6 @@ export default {
   },
   data() {
     return {
-      projectItem: [
-        'asia-in-bloom',
-
-      ],
       collage1items: [
         'Website Assets-01.png',
         'Website Assets-02.png',
@@ -142,6 +133,7 @@ export default {
       modalActive: false,
       projModalActive: false,
       enterSection1: false,
+      enterSection2: false,
       animationComplete: false,
       scroll: 0,
       name: null,
@@ -183,7 +175,7 @@ export default {
     },
     handleProjModalOpen(context) {
       this.projModalActive = true;
-      this.context = context;
+      this.projectContext = context;
       document.body.style.overflow = 'hidden';
       //console.clear();
       //console.log('opening modal ', context);
@@ -218,11 +210,13 @@ export default {
     },
     handleScroll() {
       this.scroll = window.scrollY;
-      console.log(this.scroll);
-      console.log(' ');
 
       if(this.scroll >= 600) {
         this.enterSection1 = true;
+      }
+
+      if(this.scroll >= 1400) {
+        this.enterSection2 = true;
       }
 
     },
@@ -279,18 +273,23 @@ export default {
     },
     getContextLength(projectContext) {
         if (projectContext == 'asia-in-bloom') {
-            return 7;
+          console.log(projectContext);
+          return 7;
         } else if (projectContext == 'dom-giovanni') {
-            return 2;
+          console.log(projectContext);
+          return 2;
         } else if (projectContext == 'kayla-sherri') {
-            return 1;
+          console.log(projectContext);
+          return 1;
         } else if (projectContext == 'sustainable-design') {
-            return 2;
+          console.log(projectContext);
+          return 2;
         } else if (projectContext == 'you-are-what-you-eat') {
-            return 2;
+          console.log(projectContext);
+          return 2;
         } else {
-            console.warn('invalid project context... defaulting to asia-in-bloom');
-            return 7;
+          console.warn('invalid project context... defaulting to asia-in-bloom');
+          return 1;
         }
     }
   }
@@ -316,7 +315,7 @@ export default {
 }
 
 .proj-modal-body {
-  overflow: auto !important;
+  overflow-y: auto !important;
   width: 100%;
   height: 100vh;
   margin: auto;
@@ -337,7 +336,7 @@ export default {
 
 .modal-active {
   opacity: 1;
-  transition: 400ms;
+  transition: 400ms 200ms;
 }
 
 .modal-inactive {
@@ -426,7 +425,7 @@ export default {
 
 .staged4 {
   opacity: 0;
-  transform: translate(820px, 0px) !important;
+  transform: translate(720px, 0px) !important;
 }
 
 .staged5 {
@@ -455,6 +454,56 @@ export default {
 }
 
 .staged10 {
+  opacity: 0;
+  transform: translate(870px, 250px) !important;
+}
+
+.staged11 {
+  opacity: 0;
+  transform: translate(-200px, -200px) !important;
+}
+
+.staged12 {
+  opacity: 0;
+  transform: translate(360px, -200px) !important;
+}
+
+.staged13 {
+  opacity: 0;
+  transform: translate(490px, 400px) !important;
+}
+
+.staged14 {
+  opacity: 0;
+  transform: translate(720px, 0px) !important;
+}
+
+.staged15 {
+  opacity: 0;
+  transform: translate(-200px, 40px) !important;
+}
+
+.staged16 {
+  opacity: 0;
+  transform: translate(120px, -130px) !important;
+}
+
+.staged17 {
+  opacity: 0;
+  transform: translate(440px, 500px) !important;
+}
+
+.staged18 {
+  opacity: 0;
+  transform: translate(235px, 340px) !important;
+}
+
+.staged19 {
+  opacity: 0;
+  transform: translate(800px, -90px) !important;
+}
+
+.staged20 {
   opacity: 0;
   transform: translate(870px, 250px) !important;
 }
@@ -581,30 +630,46 @@ export default {
 .collage-item11 {
   height: 400px;
   width: 360px;
-  transform: translate(0px, 0px);
-  transform-origin: 0px 0px;
+  transform: translate(300px, 0px);
+  transform-origin: 300px 0px;
   background-image: url('../assets/pieces/Website Assets-11.png');
+
+  &:hover {
+    transform: scale(1.1) translate(290px, 0px);
+  }
 }
 
 .collage-item12 {
   height: 400px;
   width: 360px;
-  transform: translate(0px, 0px);
+  transform: translate(120px, 200px);
   background-image: url('../assets/pieces/Website Assets-12.png');
+  
+  &:hover {
+    transform: scale(1.1) translate(110px, 190px);
+  }
 }
 
 .collage-item13 {
   height: 400px;
   width: 360px;
-  transform: translate(0px, 0px);
+  transform: translate(370px, 200px);
   background-image: url('../assets/pieces/Website Assets-13.png');
+
+  &:hover {
+    transform: scale(1.1) translate(360px, 190px);
+  }
 }
 
 .collage-item14 {
   height: 400px;
   width: 360px;
-  transform: translate(0px, 0px);
+  transform: translate(540px, 0px);
   background-image: url('../assets/pieces/Website Assets-14.png');
+
+  &:hover {
+    transform: scale(1.1) translate(500px, 0px);
+  }
 }
 
 .collage-item15 {
@@ -612,41 +677,65 @@ export default {
   width: 360px;
   transform: translate(0px, 0px);
   background-image: url('../assets/pieces/Website Assets-15.png');
+
+  &:hover {
+    transform: scale(1.1) translate(-10px, -10px);
+  }
 }
 
 .collage-item16 {
-  height: 400px;
-  width: 360px;
-  transform: translate(0px, 0px);
+  height: 500px;
+  width: 460px;
+  transform: translate(550px, 200px);
   background-image: url('../assets/pieces/Website Assets-16.png');
+
+  &:hover {
+    transform: scale(1.1) translate(540px, 190px);
+  }
 }
 
 .collage-item17 {
-  height: 400px;
-  width: 360px;
-  transform: translate(0px, 0px);
+  height: 450px;
+  width: 410px;
+  transform: translate(1000px, 0px);
   background-image: url('../assets/pieces/Website Assets-17.png');
+
+  &:hover {
+    transform: scale(1.1) translate(950px, 0px);
+  }
 }
 
 .collage-item18 {
-  height: 400px;
-  width: 360px;
-  transform: translate(0px, 0px);
+  height: 490px;
+  width: 490px;
+  transform: translate(820px, 200px);
   background-image: url('../assets/pieces/Website Assets-18.png');
+
+  &:hover {
+    transform: scale(1.1) translate(790px, 170px);
+  }
 }
 
 .collage-item19 {
   height: 400px;
-  width: 360px;
-  transform: translate(0px, 0px);
+  width: 380px;
+  transform: translate(1100px, 200px);
   background-image: url('../assets/pieces/Website Assets-19.png');
+
+  &:hover {
+    transform: scale(1.1) translate(1000px, 200px);
+  }
 }
 
 .collage-item20 {
-  height: 400px;
-  width: 360px;
-  transform: translate(0px, 0px);
+  height: 420px;
+  width: 380px;
+  transform: translate(780px, 0px);
   background-image: url('../assets/pieces/Website Assets-20.png');
+
+  &:hover {
+    transform: scale(1.1) translate(700px, -30px);
+  }
 }
 
 .collage-item {
