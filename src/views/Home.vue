@@ -1,181 +1,20 @@
-<script>
-import firebase from 'firebase';
-//import EditableText from '@/components/EditableText.vue'
-
-export default {
-  name: 'Home',
-  components: {
-    //EditableText
-  },
-  data() {
-    return {
-      collage1items: [
-        'Website Assets-01.png',
-        'Website Assets-02.png',
-        'Website Assets-03.png',
-        'Website Assets-04.png',
-        'Website Assets-05.png',
-        'Website Assets-06.png',
-        'Website Assets-07.png',
-        'Website Assets-08.png',
-        'Website Assets-09.png',
-        'Website Assets-10.png'
-      ],
-      modalActive: false,
-      enterSection1: false,
-      animationComplete: false,
-      scroll: 0,
-      name: null,
-      waveOffset: "120vw",
-      waveLeft: true,
-      triggerUp: false,
-      triggerDown: false,
-      fix: false,
-      activeSection: 0,
-      activeSlide: 1,
-      hover: false,
-      currentExtra: '',
-      currentPreview: '',
-      currentProjectText: '',
-      currentProjectTitle: '',
-      scrollOverflow: false,
-      context: 0,
-    }
-  },
-  props: {
-    dataRef: Object
-  },
-  created() {
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  destroyed() {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
-  mounted() {
-    this.hideNav = false; //hide nav on landing page?
-    setTimeout(() => {
-        this.animationComplete = true;
-    }, 6000);
-  },
-  methods: {
-    handleModalOpen(context) {
-      this.modalActive = true;
-      this.context = context;
-      //console.clear();
-      //console.log('opening modal ', context);
-      //console.log(this.collage1items[context]);
-    },
-    handleHoverIn(e) {
-      //console.clear();
-      //console.log('in');
-      //console.log(e.target);
-      document.getElementsByClassName('collage-item').forEach(element => {
-        if(e.target !== element) {
-          element.style.filter = 'blur(24px)';
-          element.style.opacity = 0.6;
-        }
-      });
-    },
-    handleHoverOut() {
-      //console.clear();
-      //console.log('out');
-      //console.log(e.target);
-      document.getElementsByClassName('collage-item').forEach(element => {
-        element.style.filter = 'blur(0px)';
-        element.style.opacity = 1;
-      });
-    },
-    handleScroll() {
-      this.scroll = window.scrollY;
-      //console.log(this.scroll);
-
-      if(this.scroll >= 600) {
-        this.enterSection1 = true;
-      }
-
-    },
-    fetchText() {
-      firebase.firestore().collection("test-data").where("age","==",23).get().then((docs) => {
-        docs.forEach((doc) => {
-          console.log(doc.data());
-          this.name = doc.data().name;
-        });
-      });
-    },
-    handleLeave(origin, destination, direction) {
-      console.log('origin: ', origin);
-      console.log('destination: ', destination);
-      console.log('direction: ', direction);
-  
-      this.activeSection = destination.index;
-
-      //console.log('activeSection: ', this.activeSection);
-
-      if(direction == 'up') {
-        this.triggerUp = true;
-        this.triggerDown = false;
-        //console.log('going up');
-      }
-      else {
-        this.triggerDown = true;
-        this.triggerUp = false;
-        //console.log('going down');
-      }
-
-      if(destination.index == 0) {
-        //console.log('on first slide');
-      }
-    },
-    handleSlideLeave(origin, destination, direction) {
-      //console.clear();
-      //console.log('origin: ', origin);
-      //console.log('destination: ', destination);
-      //console.log('direction: ', direction);
-  
-      this.activeSlide = destination.index;
-
-      console.log('activeSlide: ', this.activeSlide);
-
-      if(direction == 'up') {
-        this.triggerUp = true;
-        this.triggerDown = false;
-      }
-      else {
-        this.triggerDown = true;
-        this.triggerUp = false;
-      }
-    }
-  }
-}
-</script>
-
 <template>
   <div class="home">
 
-    <!-- optional top layer for modals & such -->
-    <!--div class="top-layer">
-      <div :class="( smallEnter ? 'enter' : 'stage-left' )" class="modal-small">This is some text</div>
-      <div :class="( bigEnter ? 'enter' : 'stage-left' )" class="modal-big"></div>
-    </div-->
-
-    <!-- social media buttons -->
-    <!--div class="soc-container">
-      <a href="#" target="_blank"><div class="hoverable soc-button fb"></div></a>
-      <a href="#" target="_blank"><div class="hoverable soc-button insta"></div></a>
-      <a href="#" target="_blank"><div class="hoverable soc-button tw"></div></a>
-      <a href="#" target="_blank"><div class="hoverable soc-button li"></div></a>
-    </div-->
-
-    <!-- optional wave -->
-    <!--div :style="'left:' + waveOffset" :class="(waveLeft ? 'wave-left' : 'wave-right' )" class="wave-panel">
-        <div class="wave"></div>
-    </div-->
-
-    <!-- modal -->
-    <div class="proj-modal" :class="( modalActive ? 'modal-active' : 'modal-inactive' )">
-      <div @click="modalActive = false" class="exit hoverable">🡠</div>
+    <!-- piece modal -->
+    <div class="piece-modal" :class="( modalActive ? 'modal-active' : 'modal-inactive' )">
+      <div @click="modalActive = false" class="exit hoverable"></div>
       <div class="modal-body">
         <img :src="require('@/assets/pieces/' + collage1items[context])" :alt="collage1items[context]" height="900" />
+      </div>
+    </div>
+
+    <!-- project modal -->
+    <div class="proj-modal" :class="( projModalActive ? 'modal-active' : 'modal-inactive' )">
+      <div @click="handleProjModalClose()" class="exit-fix hoverable"></div>
+      <div class="arrow-down arrow-fix hoverable">⭣</div>
+      <div class="proj-modal-body">
+        <div v-for="i in getContextLength(projectContext)" :key="i" class="proj-section" :style="'background-image: url('+require('@/assets/projects/compressed/' + projectContext + '/' + parseInt(i+1) + '.png')+')'"></div>
       </div>
     </div>
 
@@ -211,7 +50,7 @@ export default {
       <section class="section">
         <div class="page-container collage-container">
           <div class="collage-inner">
-            <div @click="handleModalOpen(0)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged1' : '' )" class="hoverable collage-item collage-item1"></div>
+            <div @click="handleProjModalOpen(0)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged1' : '' )" class="hoverable collage-item collage-item1"></div>
             <div @click="handleModalOpen(1)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged2' : '' )" class="hoverable collage-item collage-item2"></div>
             <div @click="handleModalOpen(2)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged3' : '' )" class="hoverable collage-item collage-item3"></div>
             <div @click="handleModalOpen(3)" @mouseover="handleHoverIn" @mouseout="handleHoverOut" :class="( !enterSection1 ? 'staged4' : '' )" class="hoverable collage-item collage-item4"></div>
@@ -272,8 +111,216 @@ export default {
   </div>
 </template>
 
+<script>
+import firebase from 'firebase';
+//import EditableText from '@/components/EditableText.vue'
+
+export default {
+  name: 'Home',
+  components: {
+    //EditableText
+  },
+  data() {
+    return {
+      projectItem: [
+        'asia-in-bloom',
+
+      ],
+      collage1items: [
+        'Website Assets-01.png',
+        'Website Assets-02.png',
+        'Website Assets-03.png',
+        'Website Assets-04.png',
+        'Website Assets-05.png',
+        'Website Assets-06.png',
+        'Website Assets-07.png',
+        'Website Assets-08.png',
+        'Website Assets-09.png',
+        'Website Assets-10.png'
+      ],
+      projectContext: 'asia-in-bloom',
+      modalActive: false,
+      projModalActive: false,
+      enterSection1: false,
+      animationComplete: false,
+      scroll: 0,
+      name: null,
+      waveOffset: "120vw",
+      waveLeft: true,
+      triggerUp: false,
+      triggerDown: false,
+      fix: false,
+      activeSection: 0,
+      activeSlide: 1,
+      hover: false,
+      currentExtra: '',
+      currentPreview: '',
+      currentProjectText: '',
+      currentProjectTitle: '',
+      scrollOverflow: false,
+      context: 0,
+    }
+  },
+  props: {
+    dataRef: Object
+  },
+  created() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+  mounted() {
+    this.hideNav = false; //hide nav on landing page?
+    setTimeout(() => {
+        this.animationComplete = true;
+    }, 6000);
+  },
+  methods: {
+    handleProjModalClose() {
+      this.projModalActive = false;
+      document.body.style.overflow = 'auto';
+    },
+    handleProjModalOpen(context) {
+      this.projModalActive = true;
+      this.context = context;
+      document.body.style.overflow = 'hidden';
+      //console.clear();
+      //console.log('opening modal ', context);
+      //console.log(this.collage1items[context]);
+    },
+    handleModalOpen(context) {
+      this.modalActive = true;
+      this.context = context;
+      //console.clear();
+      //console.log('opening modal ', context);
+      //console.log(this.collage1items[context]);
+    },
+    handleHoverIn(e) {
+      //console.clear();
+      //console.log('in');
+      //console.log(e.target);
+      document.getElementsByClassName('collage-item').forEach(element => {
+        if(e.target !== element) {
+          element.style.filter = 'blur(24px)';
+          element.style.opacity = 0.6;
+        }
+      });
+    },
+    handleHoverOut() {
+      //console.clear();
+      //console.log('out');
+      //console.log(e.target);
+      document.getElementsByClassName('collage-item').forEach(element => {
+        element.style.filter = 'blur(0px)';
+        element.style.opacity = 1;
+      });
+    },
+    handleScroll() {
+      this.scroll = window.scrollY;
+      console.log(this.scroll);
+      console.log(' ');
+
+      if(this.scroll >= 600) {
+        this.enterSection1 = true;
+      }
+
+    },
+    fetchText() {
+      firebase.firestore().collection("test-data").where("age","==",23).get().then((docs) => {
+        docs.forEach((doc) => {
+          console.log(doc.data());
+          this.name = doc.data().name;
+        });
+      });
+    },
+    handleLeave(origin, destination, direction) {
+      console.log('origin: ', origin);
+      console.log('destination: ', destination);
+      console.log('direction: ', direction);
+  
+      this.activeSection = destination.index;
+
+      //console.log('activeSection: ', this.activeSection);
+
+      if(direction == 'up') {
+        this.triggerUp = true;
+        this.triggerDown = false;
+        //console.log('going up');
+      }
+      else {
+        this.triggerDown = true;
+        this.triggerUp = false;
+        //console.log('going down');
+      }
+
+      if(destination.index == 0) {
+        //console.log('on first slide');
+      }
+    },
+    handleSlideLeave(origin, destination, direction) {
+      //console.clear();
+      //console.log('origin: ', origin);
+      //console.log('destination: ', destination);
+      //console.log('direction: ', direction);
+  
+      this.activeSlide = destination.index;
+
+      console.log('activeSlide: ', this.activeSlide);
+
+      if(direction == 'up') {
+        this.triggerUp = true;
+        this.triggerDown = false;
+      }
+      else {
+        this.triggerDown = true;
+        this.triggerUp = false;
+      }
+    },
+    getContextLength(projectContext) {
+        if (projectContext == 'asia-in-bloom') {
+            return 7;
+        } else if (projectContext == 'dom-giovanni') {
+            return 2;
+        } else if (projectContext == 'kayla-sherri') {
+            return 1;
+        } else if (projectContext == 'sustainable-design') {
+            return 2;
+        } else if (projectContext == 'you-are-what-you-eat') {
+            return 2;
+        } else {
+            console.warn('invalid project context... defaulting to asia-in-bloom');
+            return 7;
+        }
+    }
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 @import '../assets/styles/global';
+
+.arrow-fix {
+  position: fixed;
+  left: 48px;
+  bottom: 48px;
+}
+
+.proj-section {
+  height: 100vh;
+  width: 100%;
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.proj-modal-body {
+  overflow: auto !important;
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+}
 
 .modal-body {
   position: absolute;
@@ -297,21 +344,63 @@ export default {
   opacity: 0;
   transition: 1s;
   pointer-events: none;
-  transform: scale(0.95);
+  //transform: scale(0.95);
+}
+
+.exit-fix {
+  background-image: url(https://icons-for-free.com/iconfiles/png/512/x-1321215629555778185.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: fixed;
+  font-size: 36px;
+  margin-top: 48px;
+  margin-left: 48px;
+  transition: 400ms;
+  width: 48px;
+  display: flex;
+  height: 48px;
+  transition-timing-function: cubic-bezier(0.5, 1, 0.89, 1);
+  z-index: 99;
+
+  &:hover {
+    transform: rotate(90deg);
+  }
 }
 
 .exit {
+  background-image: url(https://icons-for-free.com/iconfiles/png/512/x-1321215629555778185.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   font-size: 36px;
-  margin-top: 64px;
-  margin-left: 80px;
+  margin-top: 36px;
+  margin-left: 36px;
   transition: 400ms;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 300ms;
+  transition-timing-function: cubic-bezier(0.5, 1, 0.89, 1);
+
 
   &:hover {
-    transform: translateX(-16px);
+    transform: rotate(90deg);
   }
 }
 
 .proj-modal {
+  position: fixed !important;
+  background: white;
+  height: 100vh;
+  width: 100%;
+  z-index: 99;
+  transition-timing-function: cubic-bezier(0.5, 1, 0.89, 1);
+}
+
+.piece-modal {
   position: fixed !important;
   background: rgba(white, 0.8);
   height: 100vh;
