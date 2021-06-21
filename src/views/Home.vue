@@ -64,6 +64,9 @@
         </div>
       </section>
 
+      <!-- process vid -->
+      <!--section class="vid-section"></section-->
+
       <!-- Section 3 -->
       <section class="section">
         <div class="page-container collage-container">
@@ -79,13 +82,6 @@
             <div @click="handleProjModalOpen('tbd')" @mouseover="handleHoverIn" @mouseout="handleHoverOut" class="hoverable collage-item collage-item19"></div>
             <div @click="handleProjModalOpen('tbd')" @mouseover="handleHoverIn" @mouseout="handleHoverOut" class="hoverable collage-item collage-item20"></div>
           </div>
-        </div>
-      </section>
-
-      <!-- Section 4 -->
-      <section class="section">
-        <div class="page-container">
-          <p>sample content 3</p>
         </div>
       </section>
 
@@ -298,6 +294,16 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/styles/global';
+
+.vid-section {
+  background-image: url('../assets/landing2.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100%;
+}
 
 .arrow-fix {
   position: fixed;
