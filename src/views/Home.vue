@@ -87,9 +87,7 @@
 
       <!-- Section 5 w slides -->
       <section class="section">
-        <div class="page-container">
-          slide example 1
-        </div>
+        <div class="page-container shop-soon"></div>
       </section>
 
       <!-- Section 6 -->
@@ -295,11 +293,18 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/styles/global';
 
+.shop-soon {
+  background-image: url('../assets/projects/compressed/tbd/shop.png') !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
 .vid-section {
-  background-image: url('../assets/landing2.gif');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-image: url('../assets/landing2.gif') !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
   background-attachment: fixed;
   height: 100vh;
   width: 100%;
