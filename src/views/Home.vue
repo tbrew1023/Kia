@@ -92,8 +92,55 @@
 
       <!-- Section 6 -->
       <section class="section">
-        <div class="page-container">
-          contact information
+        <div class="page-container thankyou-container">
+          <router-link to="/contact"><img :class="( enterThankyou ? 'enter-thankyou' : 'stage-thankyou' )" class="hoverable thankyou" src="../assets/pieces/Website Assets-03.png" alt="Thank you!" width="600" /></router-link>
+        </div>
+        <div class="footer">
+          <div class="footer-col">
+            <h3>Title and Stuff</h3>
+            <p>
+              Nothing to recycle here, but while you’re here,
+              <br>just wanted to remind you
+              <br>to be cautious of your
+              <br>carbon footprint
+              <br>Sustainability is a lifestyle;
+              <br>And Remember
+              <br>there are little ones
+              <br>who come after us
+            </p>
+          </div>
+          <div class="footer-col">
+            <h3>For All Inquiries Please Contact</h3>
+              <div class="social-container hoverable"><div class="social-icon"></div>iquiry@zakia.studio</div>
+              <div class="social-container hoverable"><div class="social-icon"></div>LinkedIn</div>
+              <div class="social-container hoverable"><div class="social-icon"></div>Instagram</div>
+          </div>
+          <div class="footer-col">
+            <h3>Primary Skills</h3>
+            <p>
+              Print Making
+              <br>Production Art
+              <br>to be cautious of your
+              <br>Illustrator
+              <br>Photoshop
+              <br>inDesign
+              <br>Lightroom
+            </p>
+          </div>
+          <div class="footer-col">
+            <h3>Primary Interests</h3>
+            <p>
+              Poster Design
+              <br>Merch Design
+              <br>Book Making
+              <br>Creen Print
+              <br>Brand Identity
+              <br>Package Design
+              <br>Experimental Typography
+              <br>Skateboarding
+              <br>Science
+            </p>
+          </div>
         </div>
       </section>
 
@@ -123,6 +170,7 @@ export default {
         'Website Assets-09.png',
         'Website Assets-10.png'
       ],
+      enterThankyou: false,
       projectContext: 'asia-in-bloom',
       modalActive: false,
       projModalActive: false,
@@ -205,12 +253,18 @@ export default {
     handleScroll() {
       this.scroll = window.scrollY;
 
+      console.log(this.scroll);
+
       if(this.scroll >= 600) {
         this.enterSection1 = true;
       }
 
       if(this.scroll >= 1400) {
         this.enterSection2 = true;
+      }
+
+      if (this.scroll >= 3400) {
+        this.enterThankyou = true;
       }
 
     },
@@ -293,9 +347,55 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/styles/global';
 
+.enter-thankyou {
+  opacity: 1;
+  transform: scale(1);
+  transition: 1s !important;
+}
+
+.stage-thankyou {
+  opacity: 0;
+  transform: scale(0.8) !important;
+  transition: 1s !important;
+}
+
+.thankyou-container {
+  height: calc(100vh - 20px);
+  transition: 1s;
+}
+
+.footer {
+  background: white;
+  height: 200px;
+  width: 100%;
+  display: flex;
+  z-index: -1;
+  font-size: 12px !important;
+
+  .footer-col {
+    margin-right: 0px;
+    margin-left: 48px;
+    height: 200px;
+    width: 300px;
+    color: gray;
+  }
+}
+
+.thankyou {
+  margin-bottom: -200px;
+  transition: 600ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  &:hover {
+    transform: scale(1.1) rotate(19deg);
+  }
+}
+
 .shop-soon {
+  padding-top: 420px !important;
+  margin-bottom: -300px !important;
+  height: 50vh !important;
   background-image: url('../assets/projects/compressed/tbd/shop.png') !important;
-  background-size: contain !important;
+  background-size: cover !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
 }
