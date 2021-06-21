@@ -91,7 +91,7 @@
       </section>
 
       <!-- Section 6 -->
-      <section style="background: pink" class="section">
+      <section class="section">
         <div class="page-container">
           contact information
         </div>

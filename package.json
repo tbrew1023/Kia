@@ -9,6 +9,7 @@
     "pull": "git add . && git commit -m 'stash' && git pull",
     "push": "git add . && git commit -m 'auto-commit' && git push -u origin master",
     "deploy": "npm run build && firebase deploy",
+    "push-deploy":"npm run push && npm run deploy",
     "auth": "firebase logout && firebase login"
   },
   "dependencies": {
